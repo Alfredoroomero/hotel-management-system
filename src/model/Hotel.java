@@ -2,18 +2,20 @@ package model;
 
 import java.util.ArrayList;
 
-//This class represents the hotel and stores rooms and bookings.
+// This class represents the hotel and stores rooms, customers and bookings.
 public class Hotel {
-
+    
     private String hotelName;
     private ArrayList<Room> rooms;
+    private ArrayList<Customer> customers;
     private ArrayList<Booking> bookings;
 
-    //Creates a hotel with empty lists of rooms and bookings.
+    // Creates a hotel with empty lists of rooms, customers and bookings.
     public Hotel(String hotelName){
 
         this.hotelName = hotelName;
         this.rooms = new ArrayList<>();
+        this.customers = new ArrayList<>();
         this.bookings = new ArrayList<>();
     }
 
@@ -21,13 +23,22 @@ public class Hotel {
         return hotelName;
     }
 
-    //Adds a new room to the hotel.
+    // Adds a new room to the hotel.
     public void addRoom(Room room){
         rooms.add(room);
     }
 
+    // Adds a new customer to the hotel.
+    public void addCustomer(Customer customer){
+        customers.add(customer);
+    }
+
     public ArrayList<Room> getRooms(){
         return rooms;
+    }
+
+    public ArrayList<Customer> getCustomers(){
+        return customers;
     }
 
     public ArrayList<Booking> getBookings(){
@@ -37,7 +48,7 @@ public class Hotel {
     // Searches for an available room by its number.
     public Room findAvailableRoom(int roomNumber){
 
-        for (Room room : rooms) {
+        for (Room room : rooms){
 
             if (room.getRoomNumber() == roomNumber && room.isAvailable()) {
                 return room;
@@ -46,12 +57,12 @@ public class Hotel {
         return null;
     }
 
-    //Creates a booking if the room is available.
+    // Creates a booking if the room is available.
     public Booking createBooking(String bookingId, Customer customer, int roomNumber, int numberOfNights){
 
         Room room = findAvailableRoom(roomNumber);
 
-        if (room == null){
+        if (room == null) {
             return null;
         }
 
@@ -64,16 +75,23 @@ public class Hotel {
     // Prints all rooms of the hotel.
     public void showRooms(){
 
-        for (Room room : rooms){
-
+        for (Room room : rooms) {
             System.out.println(room);
         }
     }
 
-    //Prints all bookings of the hotel.
+    // Prints all customers of the hotel.
+    public void showCustomers(){
+        
+        for (Customer customer : customers){
+            System.out.println(customer);
+        }
+    }
+
+    // Prints all bookings of the hotel.
     public void showBookings(){
 
-        for (Booking booking : bookings) {
+        for (Booking booking : bookings){
             System.out.println(booking);
         }
     }
