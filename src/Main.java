@@ -54,6 +54,25 @@ public class Main {
 
         System.out.println();
         System.out.println("ALL BOOKINGS:");
-        hotel.showBookings();
+        bookingManager.showBookings(hotel);
+
+        // Cancel the booking to test the new Stage 2 functionality
+        System.out.println();
+        System.out.println("CANCELLING BOOKING B001...");
+        boolean cancelled = bookingManager.cancelBooking(hotel, "B001");
+
+        if (cancelled){
+            System.out.println("Booking cancelled successfully.");
+        } else {
+            System.out.println("Booking could not be found.");
+        }
+
+        System.out.println();
+        System.out.println("BOOKINGS AFTER CANCELLATION:");
+        bookingManager.showBookings(hotel);
+
+        System.out.println();
+        System.out.println("ROOMS AFTER CANCELLATION:");
+        roomManager.showRooms(hotel);
     }
 }

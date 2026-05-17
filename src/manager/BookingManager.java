@@ -23,4 +23,36 @@ public class BookingManager {
 
         return booking;
     }
+
+    //Searches for a booking by its ID.
+    public Booking findBookingById(Hotel hotel, String bookingId){
+
+        for (Booking booking : hotel.getBookings()){
+
+            if (booking.getBookingId().equals(bookingId)){
+                return booking;
+            }
+        }
+
+        return null;
+    }
+
+    //Cancels a booking if it exists.
+    public boolean cancelBooking(Hotel hotel, String bookingId){
+
+        Booking booking = findBookingById(hotel, bookingId);
+
+        if (booking == null){
+            return false;
+        }
+
+        booking.cancelBooking();
+        return true;
+    }
+
+    //Shows all bookings in the hotel.
+    public void showBookings(Hotel hotel){
+
+        hotel.showBookings();
+    }
 }

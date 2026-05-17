@@ -8,6 +8,7 @@ public class Booking {
     private Room room;
     private int numberOfNights;
     private double totalPrice;
+    private String status;
 
     //Creates a booking and calculates its total price.
     public Booking(String bookingId, Customer customer, Room room, int numberOfNights){
@@ -17,6 +18,7 @@ public class Booking {
         this.room = room;
         this.numberOfNights = numberOfNights;
         this.totalPrice = room.getPricePerNight() * numberOfNights;
+        this.status = "ACTIVE";
     }
 
     public String getBookingId(){
@@ -39,6 +41,22 @@ public class Booking {
         return totalPrice;
     }
 
+    public String getStatus(){
+        return status;
+    }
+
+    //Updates the status of the booking.
+    public void setStatus(String status){
+        this.status = status;
+    }
+
+    //Cancels the booking and makes the room available again.
+    public void cancelBooking(){
+        
+        this.status = "CANCELLED";
+        this.room.setAvailable(true);
+    }
+
     @Override
     public String toString(){
         
@@ -46,6 +64,7 @@ public class Booking {
                " | Customer: " + customer.getName() +
                " | Room: " + room.getRoomNumber() +
                " | Nights: " + numberOfNights +
-               " | Total price: " + totalPrice;
+               " | Total price: " + totalPrice +
+               " | Status: " + status;
     }
 }
