@@ -6,7 +6,7 @@ import model.Customer;
 import model.Hotel;
 import model.Room;
 
-// This class runs a small proof of concept for stage 1.
+// This class runs a small proof of concept for stage 2.
 public class Main {
 
     public static void main(String[] args){
@@ -24,6 +24,13 @@ public class Main {
         roomManager.addRoom(hotel, new Room(102, "Double", 80.0));
         roomManager.addRoom(hotel, new Room(201, "Suite", 120.0));
 
+        // Try to add a duplicated room to test the validation
+        boolean duplicatedRoomAdded = roomManager.addRoom(hotel, new Room(102, "Double", 80.0));
+
+        if (!duplicatedRoomAdded){
+            System.out.println("Room 102 could not be added because it already exists.");
+        }
+
         // Create and add a customer
         Customer customer = new Customer("C001", "Alice Brown", "alice@example.com");
         boolean customerAdded = customerManager.addCustomer(hotel, customer);
@@ -34,9 +41,7 @@ public class Main {
             System.out.println("Customer could not be added because the ID already exists.");
         }
 
-        // Create a booking
-        Booking booking = bookingManager.createBooking(hotel, "B001", customer, 102, 3);
-
+        System.out.println();
         System.out.println("HOTEL INFORMATION");
         System.out.println("Hotel name: " + hotel.getHotelName());
         System.out.println();
@@ -45,18 +50,27 @@ public class Main {
         roomManager.showRooms(hotel);
         System.out.println();
 
+        System.out.println("AVAILABLE ROOMS BEFORE BOOKING:");
+        roomManager.showAvailableRooms(hotel);
+        System.out.println();
+
         System.out.println("CUSTOMERS:");
         customerManager.showCustomers(hotel);
         System.out.println();
 
-        if (booking != null){
+        // Create a booking
+        Booking booking = bookingManager.createBooking(hotel, "B001", customer, 102, 3);
 
+        if (booking != null){
             System.out.println("BOOKING CREATED SUCCESSFULLY:");
             System.out.println(booking);
-
         } else {
             System.out.println("Booking could not be created.");
         }
+
+        System.out.println();
+        System.out.println("AVAILABLE ROOMS AFTER BOOKING:");
+        roomManager.showAvailableRooms(hotel);
 
         System.out.println();
         System.out.println("ALL BOOKINGS:");
