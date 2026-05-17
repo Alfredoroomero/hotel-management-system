@@ -26,7 +26,13 @@ public class Main {
 
         // Create and add a customer
         Customer customer = new Customer("C001", "Alice Brown", "alice@example.com");
-        customerManager.addCustomer(hotel, customer);
+        boolean customerAdded = customerManager.addCustomer(hotel, customer);
+
+        if (customerAdded){
+            System.out.println("Customer added successfully.");
+        } else {
+            System.out.println("Customer could not be added because the ID already exists.");
+        }
 
         // Create a booking
         Booking booking = bookingManager.createBooking(hotel, "B001", customer, 102, 3);
