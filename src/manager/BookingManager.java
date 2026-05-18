@@ -11,6 +11,10 @@ public class BookingManager {
     //Creates a booking if the selected room is available.
     public Booking createBooking(Hotel hotel, String bookingId, Customer customer, int roomNumber, int numberOfNights){
         
+        if (findBookingById(hotel, bookingId) != null){
+            return null;
+        }
+
         Room room = hotel.findAvailableRoom(roomNumber);
 
         if (room == null) {
@@ -46,12 +50,35 @@ public class BookingManager {
             return false;
         }
 
+        if (booking.getStatus().equals("CANCELLED")){
+            return false;
+        }
+
         booking.cancelBooking();
         return true;
     }
 
-    //Shows all bookings in the hotel.
+    //Shows only active bookings in the hotel
     public void showBookings(Hotel hotel){
+
+        boolean foundActiveBooking = false;
+
+        for (Booking booking : hotel.getBookings()){
+
+            if (!booking.getStatus().equals("CANCELLED")){
+
+                System.out.println(booking);
+                foundActiveBooking = true;
+            }
+        }
+
+        if (!foundActiveBooking){
+            System.out.println("No active bookings found.");
+        }
+    }
+
+    //Shows all bookings, including cancelled ones
+    public void showAllBookings(Hotel hotel){
 
         hotel.showBookings();
     }

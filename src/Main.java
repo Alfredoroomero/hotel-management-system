@@ -112,6 +112,11 @@ public class Main {
         System.out.print("Enter booking ID: ");
         String bookingId = scanner.nextLine();
 
+        if (bookingManager.findBookingById(hotel, bookingId) != null){
+            System.out.println("Booking could not be created because the booking ID already exists.");
+            return;
+        }
+
         System.out.print("Enter customer ID: ");
         String customerId = scanner.nextLine();
 

@@ -9,7 +9,7 @@ public class RoomManager{
     // Adds a new room to the hotel if the room is not already used.
     public boolean addRoom(Hotel hotel, Room room){
         
-        if (findAvailableRoom(hotel, room.getRoomNumber()) != null){
+        if (findRoomByNumber(hotel, room.getRoomNumber()) != null){
 
             return false;
         }
