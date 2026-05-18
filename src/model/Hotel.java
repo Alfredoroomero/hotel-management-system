@@ -57,21 +57,6 @@ public class Hotel {
         return null;
     }
 
-    // Creates a booking if the room is available.
-    public Booking createBooking(String bookingId, Customer customer, int roomNumber, int numberOfNights){
-
-        Room room = findAvailableRoom(roomNumber);
-
-        if (room == null) {
-            return null;
-        }
-
-        Booking booking = new Booking(bookingId, customer, room, numberOfNights);
-        bookings.add(booking);
-        room.setAvailable(false);
-        return booking;
-    }
-
     // Prints all rooms of the hotel.
     public void showRooms(){
 

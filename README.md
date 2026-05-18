@@ -70,3 +70,71 @@ Manager classes:
 
 From the project root folder, run:
 javac src/Main.java src/model/*.java src/manager/*.java
+
+## How to run
+
+After compiling, run:       java -cp src Main
+
+## Console menu
+
+When the program starts, the following menu is shown:
+
+===== NOVA HOTEL MANAGEMENT SYSTEM =====
+1. Show all rooms
+2. Show available rooms
+3. Show customers
+4. Show bookings
+5. Create booking
+6. Cancel booking
+0. Exit
+
+
+## Example test flow
+
+A simple test flow for the current version is:
+
+1. Select option 2 to show available rooms.
+2. Select option 5 to create a booking.
+3. Use customer ID C001.
+4. Use room number 102.
+5. Enter the number of nights.
+6. Select option 4 to show bookings.
+7. Select option 2 again to check that the booked room is no longer available.
+8. Select option 6 to cancel the booking.
+9. Select option 2 again to check that the room is available again.
+
+
+## Example initial data
+
+The program currently loads sample data when it starts.
+
+Rooms:
+
+Room 101: Single, 50.0 per night
+Room 102: Double, 80.0 per night
+Room 201: Suite, 120.0 per night
+
+Customers:
+
+C001: Alice Brown
+C002: John Smith
+
+Technologies used:
+
+-Java
+-Java Standard Library
+-VS Code
+-Git
+-GitHub
+
+No third-party libraries are currently used in the code.
+
+## Planned Stage 3 improvements
+
+Possible future improvements include:
+
+-Billing and invoice generation
+-File storage
+-More complete check-in and check-out logic
+-More advanced validation
+-Improved user interface
