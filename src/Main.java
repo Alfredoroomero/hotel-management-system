@@ -128,7 +128,7 @@ public class Main {
         }
 
         int roomNumber = readInt(scanner, "Enter room number: ");
-        int numberOfNights = readInt(scanner, "Enter number of nights: ");
+        int numberOfNights = readPositiveInt(scanner, "Enter number of nights: ");
 
         Booking booking = bookingManager.createBooking(hotel, bookingId, customer, roomNumber, numberOfNights);
 
@@ -163,11 +163,25 @@ public class Main {
         System.out.print(message);
 
         while (!scanner.hasNextInt()){
+
             System.out.println("Invalid number. Please try again.");
             scanner.next();
             System.out.print(message);
         }
 
         return scanner.nextInt();
+    }
+
+    // Reads a positive integer from the user.
+    private static int readPositiveInt(Scanner scanner, String message){
+
+        int number = readInt(scanner, message);
+
+        while (number <= 0){
+            System.out.println("The number must be greater than 0.");
+            number = readInt(scanner, message);
+        }
+
+        return number;
     }
 }
