@@ -3,10 +3,12 @@ import java.util.Scanner;
 import manager.BookingManager;
 import manager.CustomerManager;
 import manager.RoomManager;
+import manager.BillingManager;
 import model.Booking;
 import model.Customer;
 import model.Hotel;
 import model.Room;
+import model.Invoice;
 
 // This class runs the console application for stage 2.
 public class Main {
@@ -22,6 +24,7 @@ public class Main {
         RoomManager roomManager = new RoomManager();
         CustomerManager customerManager = new CustomerManager();
         BookingManager bookingManager = new BookingManager();
+        BillingManager billingManager = new BillingManager();
 
         // Load initial test data
         loadInitialData(hotel, roomManager, customerManager);
@@ -73,6 +76,10 @@ public class Main {
                     addRoomFromInput(scanner, hotel, roomManager);
                     break;
 
+                case 9:
+                    generateInvoiceFromInput(scanner, hotel, bookingManager, billingManager);
+                    break;
+
                 case 0:
                     System.out.println("Exiting application...");
                     break;
@@ -111,6 +118,7 @@ public class Main {
         System.out.println("6. Cancel booking");
         System.out.println("7. Add customer");
         System.out.println("8. Add room");
+        System.out.println("9. Generate invoice");
         System.out.println("0. Exit");
     }
 
@@ -259,6 +267,27 @@ public class Main {
         }
 
         return number;
+    }
+
+    //generates an invoice using data entered by the user
+    private static void generateInvoiceFromInput(Scanner scanner, Hotel hotel, BookingManager bookingManager, BillingManager billingManager){
+
+        scanner.nextLine();
+
+        System.out.print("Enter invoice ID: ");
+        String invoiceId = scanner.nextLine();
+
+        System.out.print("Enter booking ID: ");
+        String bookingId = scanner.nextLine();
+
+        Invoice invoice = billingManager.generateInvoice(hotel, bookingManager, invoiceId, bookingId);
+
+        if (invoice != null){
+            System.out.println("Invoice generated successfully:");
+            System.out.println(invoice);
+        } else {
+            System.out.println("Invoice could not be generated. The booking may not exist or may be cancelled.");
+        }
     }
 
     // Reads an integer from the user.
