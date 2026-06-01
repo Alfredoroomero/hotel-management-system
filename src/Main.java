@@ -69,6 +69,10 @@ public class Main {
                     addCustomerFromInput(scanner, hotel, customerManager);
                     break;
 
+                case 8:
+                    addRoomFromInput(scanner, hotel, roomManager);
+                    break;
+
                 case 0:
                     System.out.println("Exiting application...");
                     break;
@@ -106,6 +110,7 @@ public class Main {
         System.out.println("5. Create booking");
         System.out.println("6. Cancel booking");
         System.out.println("7. Add customer");
+        System.out.println("8. Add room");
         System.out.println("0. Exit");
     }
 
@@ -192,6 +197,68 @@ public class Main {
         }else{
             System.out.println("Customer could not be added");
         }
+    }
+
+    //Adds a new room using data entered by the user.
+    private static void addRoomFromInput(Scanner scanner, Hotel hotel, RoomManager roomManager){
+
+        int roomNumber = readInt(scanner, "Enter room number: ");
+
+        if (roomManager.findRoomByNumber(hotel, roomNumber) != null){
+            System.out.println("Room could not be added because the room number already exists.");
+            return;
+        }
+
+        scanner.nextLine();
+
+        System.out.print("Enter room type: ");
+        String type = scanner.nextLine();
+
+        double pricePerNight = readPositiveDouble(scanner, "Enter room price: ");
+
+        Room room = new Room(roomNumber, type, pricePerNight);
+        boolean added = roomManager.addRoom(hotel, room);
+
+        if(added){
+
+            System.out.println("Room added successfully:");
+            System.out.println(room);
+
+        }else{
+            System.out.println("Room could not be added");
+        }
+    }
+
+    //Reads a positive decimal number from the user.
+    private static double readPositiveDouble(Scanner scanner, String message){
+
+        System.out.print(message);
+
+        while (!scanner.hasNextDouble()){
+
+            System.out.println("Invalid number. Please try again.");
+            scanner.next();
+            System.out.print(message);
+        }
+
+        double number = scanner.nextDouble();
+
+        while (number <= 0){
+
+            System.out.println("The number must be greater than 0.");
+            System.out.print(message);
+
+            while (!scanner.hasNextDouble()){
+
+                System.out.println("Invalid number. Please try again.");
+                scanner.next();
+                System.out.print(message);
+            }
+
+            number = scanner.nextDouble();
+        }
+
+        return number;
     }
 
     // Reads an integer from the user.
