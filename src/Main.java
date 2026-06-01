@@ -65,6 +65,10 @@ public class Main {
                     cancelBookingFromInput(scanner, hotel, bookingManager);
                     break;
 
+                case 7:
+                    addCustomerFromInput(scanner, hotel, customerManager);
+                    break;
+
                 case 0:
                     System.out.println("Exiting application...");
                     break;
@@ -101,6 +105,7 @@ public class Main {
         System.out.println("4. Show bookings");
         System.out.println("5. Create booking");
         System.out.println("6. Cancel booking");
+        System.out.println("7. Add customer");
         System.out.println("0. Exit");
     }
 
@@ -154,6 +159,38 @@ public class Main {
             System.out.println("Booking cancelled successfully.");
         } else {
             System.out.println("Booking could not be found.");
+        }
+    }
+
+    // Adds a new customer using data entered by the user.
+    private static void addCustomerFromInput(Scanner scanner, Hotel hotel, CustomerManager customerManager){
+
+        scanner.nextLine();
+
+        System.out.print("Enter customer ID: ");
+        String customerId = scanner.nextLine();
+
+        if (customerManager.findCustomerById(hotel, customerId) != null){
+            System.out.println("Customer could not be added because the ID already exists.");
+            return;
+        }
+
+        System.out.print("Enter customer name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Enter customer email: ");
+        String email = scanner.nextLine();
+
+        Customer customer = new Customer(customerId, name, email);
+        boolean added = customerManager.addCustomer(hotel, customer);
+
+        if(added){
+
+            System.out.println("Customer added successfully:");
+            System.out.println(customer);
+
+        }else{
+            System.out.println("Customer could not be added");
         }
     }
 
